@@ -49,6 +49,17 @@ node('docker') {
                     prodImage.push('latest')
                 }
             }
+            docker.withRegistry('https://ghcr.io', 'cesmarvin-ghcr') {
+                if (git.isTag()) {
+                    devImage.push()
+                    prodImage.push()
+                }
+
+                if (env.BRANCH_NAME == "master") {
+                    devImage.push('dev')
+                    prodImage.push('latest')
+                }
+            }
         }
     }
 
