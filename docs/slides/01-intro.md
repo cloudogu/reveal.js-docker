@@ -1,8 +1,8 @@
 <!-- .slide: class="title"  -->
-<!-- .slide: data-background-image="dist/theme/images/title.svg"  -->
 # Welcome 
 to cloudogu/reveal.js-docker
 
-<font color="black">
-    <!--VERSION-->
-</font>
+See [Readme](https://github.com/cloudogu/reveal.js-docker/blob/master/README.md)
+
+And an [example](https://cloudogu.github.io/reveal.js-docker-example/) showcasing more advanced features.
+1
