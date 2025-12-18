@@ -3,7 +3,7 @@ FROM node:20-alpine as node
 FROM nginxinc/nginx-unprivileged:1-alpine-slim as nginx
 
 FROM node as aggregator 
-RUN mkdir -p /tmp/reveal /dist/scripts
+RUN mkdir -p /tmp/reveal/images /dist/scripts
 # Install dependencies first -> More effective docker build cache
 COPY package.json package-lock.json /tmp/reveal/
 # Speed up build by removing dependencies that are large and not needed for this use case

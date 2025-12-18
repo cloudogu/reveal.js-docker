@@ -189,10 +189,16 @@ Try it with `export DOCKER_BUILDKIT=0` See [this issue](https://github.com/moby/
 
 ```shell
 git remote add upstream https://github.com/hakimel/reveal.js
-git pull upstream/tags/4.4.0 master
+git fetch upstream --tags
+git merge 5.2.1
 # Fix merge conflicts.
+# index.html because of templating 
+# README -> README-reveal-js.md
+# Because of tweemoji and font-awesome,
+# resolve gulpfile.js and package.json
+# run npm install to get proper package-lock.json
 # Build Docker images and test both images variants (e.g. with cloudogu/reveal.js-docker-example)
-git tag -s 4.4.0-r1
+git tag -s 5.2.1-r1
 git push --follow-tags
 ```
 
