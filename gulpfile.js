@@ -287,6 +287,7 @@ gulp.task('package', gulp.series(async () => {
         './index.html',
         './dist/**',
         './plugin/**',
+        './docs/slides/**.md',
         './*/*.md',
         './images/**',
         './favicon.ico'

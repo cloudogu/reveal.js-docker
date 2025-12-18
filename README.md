@@ -3,7 +3,6 @@
 reveal.js-docker
 ===
 
-[![Build Status](https://oss.cloudogu.com/jenkins/buildStatus/icon?job=cloudogu-github%2Freveal.js-docker%2Fmaster)](https://oss.cloudogu.com/jenkins/job/cloudogu-github/job/reveal.js-docker/job/master/)
 [![](https://img.shields.io/docker/image-size/cloudogu/reveal.js)](https://hub.docker.com/r/cloudogu/reveal.js)
 
 Docker images providing easier to use, opinionated reveal.js web apps - web-based slides/presentations. 
@@ -48,6 +47,8 @@ docker run --rm -p 8080:8080 cloudogu/reveal.js
 ```
 
 Presentation is served at http://localhost:8080
+
+Note that images are also available from GitHub Container Registry without rate limits, e.g. `ghcr.io/cloudogu/reveal.js`.
 
 ## Ship your own slides
 
@@ -197,6 +198,7 @@ git merge 5.2.1
 # resolve gulpfile.js and package.json
 # run npm install to get proper package-lock.json
 # Build Docker images and test both images variants (e.g. with cloudogu/reveal.js-docker-example)
+# Also test live reloading!
 git tag -s 5.2.1-r1
 git push --follow-tags
 ```
