@@ -28,10 +28,8 @@ node('docker') {
         String imageName = "cloudogu/reveal.js:${createVersion(git)}"
 
         stage('Build Images') {
-            withEnv(['DOCKER_BUILDKIT=false']) {
-                devImage = docker.build "${imageName}-dev", '--build-arg ENV=dev .'
-                prodImage = docker.build imageName, '.'
-            }
+            devImage = docker.build "${imageName}-dev", '--build-arg ENV=dev .'
+            prodImage = docker.build imageName, '.'
         }
 
         stage('Test Images') {

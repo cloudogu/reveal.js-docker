@@ -48,11 +48,11 @@ RUN  node_modules/gulp/bin/gulp.js fontawesome twemoji
 # Package only whats necessary for static website
 RUN node_modules/gulp/bin/gulp.js package
 RUN unzip reveal-js-presentation.zip -d /dist/reveal/
-# Serve web content at same folder in dev and prod: /reveal. This does not work with buildkit.
-RUN ln -s /reveal /dist/usr/share/nginx/html
 
 
 FROM nginx AS prod
+# Change Nginx root from /usr/share/nginx/html to /reveal so prod and dev work the same way (easier for templating)
+RUN sed -i 's|/usr/share/nginx/html|/reveal|g' /etc/nginx/conf.d/default.conf
 COPY --from=prod-aggregator --chown=nginx /dist /
 EXPOSE 8080
 ENTRYPOINT [ "/scripts/entrypoint.sh", "nginx", "-g", "daemon off;"]

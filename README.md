@@ -177,9 +177,8 @@ Real Life:
 Build Docker Images, from repo root
 
 ```bash
-export DOCKER_BUILDKIT=false
-docker build -t cloudogu/reveal.js:local .
-docker build -t cloudogu/reveal.js:local-dev --build-arg ENV=dev .
+docker build -t cloudogu/reveal.js:local  --progress=plain .
+docker build -t cloudogu/reveal.js:local-dev --build-arg ENV=dev  --progress=plain .
 ```
 
 Note: If only one build is required, buildkit would be more efficient. However, prod is failing with buildkit.
