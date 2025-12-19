@@ -1,6 +1,8 @@
 #!groovy
-@Library('github.com/cloudogu/ces-build-lib@1.35.2')
+@Library('github.com/cloudogu/ces-build-lib@5.0.0')
 import com.cloudogu.ces.cesbuildlib.*
+
+String getTrivyVersion() { '0.68.2'}
 
 node('docker') {
 
@@ -32,10 +34,25 @@ node('docker') {
             prodImage = docker.build imageName, '.'
         }
 
-        stage('Test Images') {
-            smokeTest(devImage, '8000')
-            smokeTest(prodImage, '8080')
-        }
+        parallel(
+                'Scan image': {
+                    stage('Scan image') {
+                        Trivy trivy = new Trivy(this, trivyVersion)
+                        // Only unstable on critical
+                        trivy.scanImage(imageName)
+                        // Create report with all vulns
+                        trivy.scanImage(imageName, TrivySeverityLevel.ALL, TrivyScanStrategy.IGNORE)
+                        trivy.saveFormattedTrivyReport()
+                    }
+                },
+                'Test Images': {
+                    stage('Test Images') {
+                        smokeTest(devImage, '8000')
+                        smokeTest(prodImage, '8080')
+                    }
+                }
+        )
+
 
         stage('Deploy Images') {
             docker.withRegistry('', 'cesmarvin-dockerhub-access-token') {
